@@ -29,6 +29,14 @@ const products = [
 
 export function Products() {
   const [showHover, setShowHover] = useState(false)
+  const [isInstagram, setIsInstagram] = useState(false)
+
+  // Detecta si estamos en Instagram WebView
+  useEffect(() => {
+    if (typeof navigator !== "undefined" && navigator.userAgent.includes("Instagram")) {
+      setIsInstagram(true)
+    }
+  }, [])
 
   // Alterna imágenes cada 7 segundos
   useEffect(() => {
@@ -65,26 +73,33 @@ export function Products() {
               key={index}
               className="relative overflow-hidden rounded-xl shadow-lg cursor-pointer transition-all duration-300 h-full"
             >
-              {/* Contenedor de imágenes con fade */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
-                <img
-                  src={product.img}
-                  alt={product.title}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                    showHover ? "opacity-0" : "opacity-100"
-                  }`}
-                  draggable={false}
-                />
-                <img
-                  src={product.imgHover}
-                  alt={product.title}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                    showHover ? "opacity-100" : "opacity-0"
-                  }`}
-                  draggable={false}
-                />
+              <div className="absolute inset-0 overflow-hidden">
+                {isInstagram ? (
+                  // Si es Instagram, solo cambia la imagen sin fade
+                  <img
+                    src={showHover ? product.imgHover : product.img}
+                    alt={product.title}
+                    className="w-full h-full object-cover absolute inset-0"
+                  />
+                ) : (
+                  // Si es navegador normal, fade premium
+                  <>
+                    <img
+                      src={product.img}
+                      alt={product.title}
+                      className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${showHover ? "opacity-0" : "opacity-100"}`}
+                      style={{ willChange: "opacity" }}
+                    />
+                    <img
+                      src={product.imgHover}
+                      alt={product.title}
+                      className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${showHover ? "opacity-100" : "opacity-0"}`}
+                      style={{ willChange: "opacity" }}
+                    />
+                  </>
+                )}
                 {/* Overlay negro */}
-                <div className="absolute inset-0 bg-black/40 transition-opacity duration-1000"></div>
+                <div className="absolute inset-0 bg-black/40 transition-colors duration-1000"></div>
               </div>
 
               {/* Contenido */}
