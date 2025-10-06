@@ -9,7 +9,7 @@ const products = [
     imgHover: "mariscos2.jpg",
     title: "Mariscos a Granel",
     description: "La mejor selección de mariscos a granel, frescos y llenos de sabor.",
-    items: ["Choritos", "Almejas", "Machas", "Mariscos solos", "Surtido de marisco",  "Y mucho más"],
+    items: ["Choritos", "Almejas", "Machas", "Mariscos solos", "Surtido de marisco", "Y mucho más"],
   },
   {
     img: "pescados.jpg",
@@ -23,18 +23,18 @@ const products = [
     imgHover: "mariscales2.jpg",
     title: "Para Comer Aquí",
     description: "Disfruta nuestros mariscales y ceviches preparados al momento con los ingredientes más frescos.",
-    items: ["Mariscal tradicional", "Ceviche de reineta",  "Mariscal Especial (elección propia)", "Mariscos solos", "Mariscal de loco", "Y mucho más"],
+    items: ["Mariscal tradicional", "Ceviche de reineta", "Mariscal Especial (elección propia)", "Mariscos solos", "Mariscal de loco", "Y mucho más"],
   },
 ]
 
 export function Products() {
-  // Estado para alternar imágenes
   const [showHover, setShowHover] = useState(false)
 
+  // Alterna imágenes cada 7 segundos
   useEffect(() => {
     const interval = setInterval(() => {
       setShowHover(prev => !prev)
-    }, 7000) // cada 7 segundos
+    }, 7000)
     return () => clearInterval(interval)
   }, [])
 
@@ -65,23 +65,17 @@ export function Products() {
               key={index}
               className="relative overflow-hidden rounded-xl shadow-lg cursor-pointer transition-all duration-300 h-full"
             >
-              {/* Imagen con efecto desvanecedor */}
-              <div className="absolute inset-0 overflow-hidden">
-                {/* Imagen normal */}
-                <img
-                  src={product.img}
-                  alt={product.title}
-                  className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${showHover ? "opacity-0" : "opacity-100"}`}
-                />
-                {/* Imagen hover */}
-                <img
-                  src={product.imgHover}
-                  alt={product.title}
-                  className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${showHover ? "opacity-100" : "opacity-0"}`}
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/40 transition-colors"></div>
-              </div>
+              {/* Imagen como fondo con fade */}
+              <div
+                className="absolute inset-0 w-full h-full transition-all duration-1000"
+                style={{
+                  backgroundImage: `url(${showHover ? product.imgHover : product.img})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
+              {/* Overlay negro con fade */}
+              <div className="absolute inset-0 bg-black/40 transition-colors duration-1000"></div>
 
               {/* Contenido */}
               <div className="relative p-6 flex flex-col justify-start h-72">
