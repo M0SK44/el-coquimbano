@@ -1,6 +1,7 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
+import { useState, useEffect } from "react"
 
 const products = [
   {
@@ -27,6 +28,16 @@ const products = [
 ]
 
 export function Products() {
+  // Estado para alternar imágenes
+  const [showHover, setShowHover] = useState(false)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowHover(prev => !prev)
+    }, 7000) // cada 7 segundos
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <section
       id="productos"
@@ -52,27 +63,27 @@ export function Products() {
           {products.map((product, index) => (
             <Card
               key={index}
-              className="relative overflow-hidden rounded-xl shadow-lg cursor-pointer group transition-all duration-300 h-full"
+              className="relative overflow-hidden rounded-xl shadow-lg cursor-pointer transition-all duration-300 h-full"
             >
-              {/* Imagen normal + hover */}
+              {/* Imagen con efecto desvanecedor */}
               <div className="absolute inset-0 overflow-hidden">
                 {/* Imagen normal */}
                 <img
                   src={product.img}
                   alt={product.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${showHover ? "opacity-0" : "opacity-100"}`}
                 />
                 {/* Imagen hover */}
                 <img
                   src={product.imgHover}
                   alt={product.title}
-                  className="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${showHover ? "opacity-100" : "opacity-0"}`}
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+                <div className="absolute inset-0 bg-black/40 transition-colors"></div>
               </div>
 
-              {/* Contenido sobre la imagen */}
+              {/* Contenido */}
               <div className="relative p-6 flex flex-col justify-start h-72">
                 <h3
                   className="text-2xl text-white font-bold mb-2"
