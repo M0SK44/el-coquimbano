@@ -65,17 +65,27 @@ export function Products() {
               key={index}
               className="relative overflow-hidden rounded-xl shadow-lg cursor-pointer transition-all duration-300 h-full"
             >
-              {/* Imagen como fondo con fade */}
-              <div
-                className="absolute inset-0 w-full h-full transition-all duration-1000"
-                style={{
-                  backgroundImage: `url(${showHover ? product.imgHover : product.img})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              />
-              {/* Overlay negro con fade */}
-              <div className="absolute inset-0 bg-black/40 transition-colors duration-1000"></div>
+              {/* Contenedor de imágenes con fade */}
+              <div className="absolute inset-0 w-full h-full overflow-hidden">
+                <img
+                  src={product.img}
+                  alt={product.title}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                    showHover ? "opacity-0" : "opacity-100"
+                  }`}
+                  draggable={false}
+                />
+                <img
+                  src={product.imgHover}
+                  alt={product.title}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                    showHover ? "opacity-100" : "opacity-0"
+                  }`}
+                  draggable={false}
+                />
+                {/* Overlay negro */}
+                <div className="absolute inset-0 bg-black/40 transition-opacity duration-1000"></div>
+              </div>
 
               {/* Contenido */}
               <div className="relative p-6 flex flex-col justify-start h-72">
