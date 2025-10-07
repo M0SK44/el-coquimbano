@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ChevronDown, Fish, Waves } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 
 export function Hero() {
   const scrollToSection = (id: string) => {
@@ -29,8 +29,6 @@ export function Hero() {
         />
       </div>
 
-      
-
       {/* Contenido principal */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         <h1
@@ -41,17 +39,20 @@ export function Hero() {
         </h1>
 
         <p className="text-white text-xl md:text-3xl text-foreground/90 mb-4 max-w-3xl mx-auto text-balance leading-relaxed">
-         El sabor del mar en cada bocado
+          El sabor del mar en cada bocado
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* Botón con efecto de brillo */}
           <Button
             size="lg"
-            className="text-lg px-8 py-6 bg-primary text-primary-foreground hover:bg-primary/90"
+            className="text-lg px-8 py-6 bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden"
             onClick={() => scrollToSection("productos")}
           >
-            Ver Productos
+            <span className="absolute inset-0 animate-shineBg"></span>
+            <span className="relative z-10">Ver Productos</span>
           </Button>
+
           <Button
             size="lg"
             variant="outline"
@@ -80,15 +81,11 @@ export function Hero() {
       {/* Degradado inferior */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
 
-      {/* Efecto de brillo en texto */}
+      {/* Efectos */}
       <style jsx>{`
         @keyframes shine {
-          0% {
-            background-position: -200%;
-          }
-          100% {
-            background-position: 200%;
-          }
+          0% { background-position: -200%; }
+          100% { background-position: 200%; }
         }
         .animate-shine {
           background: linear-gradient(90deg, #fff, #facc15, #fff);
@@ -96,6 +93,22 @@ export function Hero() {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           animation: shine 3s linear infinite;
+        }
+
+        @keyframes shineBg {
+          0% { background-position: -200%; }
+          100% { background-position: 200%; }
+        }
+        .animate-shineBg {
+          background: linear-gradient(90deg, #fff, #facc15, #fff);
+          background-size: 200%;
+          animation: shineBg 3s linear infinite;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 0;
         }
       `}</style>
     </section>

@@ -14,7 +14,7 @@ export default function Home() {
       <About />
       <Contact />
       <Footer />
-       <WhatsappButton />
+      <WhatsappButton />
     </main>
   )
 }
