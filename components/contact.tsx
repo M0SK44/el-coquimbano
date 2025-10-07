@@ -63,9 +63,9 @@ export function Contact() {
               </div>
               <h3 className="font-semibold text-lg mb-2 text-card-foreground">Horario</h3>
               <p className="text-muted-foreground text-white">
-                Lunes a Martes | Jueves a Domingo
+                Lunes y Martes | Jueves a Domingo
                 <br />
-                9:00 AM - 7:00 PM
+                8:00 AM - 17:00 PM
               </p>
             </CardContent>
           </Card>
