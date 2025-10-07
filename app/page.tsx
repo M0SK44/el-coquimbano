@@ -4,7 +4,7 @@ import { Products } from "@/components/products"
 import { About } from "@/components/about"
 import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
-
+import { WhatsappButton } from "@/components/WhatsappButton"
 export default function Home() {
   return (
     <main className="min-h-screen">
@@ -14,6 +14,7 @@ export default function Home() {
       <About />
       <Contact />
       <Footer />
+       <WhatsappButton />
     </main>
   )
 }
